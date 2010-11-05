@@ -785,6 +785,7 @@ static int input_dev_filter(const char* input_dev_name)
 		ret = 1;
 	}
 	return ret;
+	schedule_work_on(0, &dbs_refresh_work);
 }
 
 static int dbs_input_connect(struct input_handler *handler,
@@ -908,7 +909,8 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 			dbs_tuners_ins.io_is_busy = should_io_be_busy();
 		}
 		if (!cpu)
-		rc = input_register_handler(&dbs_input_handler);
+			rc = input_register_handler(&dbs_input_handler);
+
 		mutex_unlock(&dbs_mutex);
 
 		mutex_init(&this_dbs_info->timer_mutex);
@@ -923,7 +925,8 @@ static int cpufreq_governor_dbs(struct cpufreq_policy *policy,
 		mutex_destroy(&this_dbs_info->timer_mutex);
 		dbs_enable--;
 		if (!cpu)
-		input_unregister_handler(&dbs_input_handler);
+			input_unregister_handler(&dbs_input_handler);
+
 		mutex_unlock(&dbs_mutex);
 		if (!dbs_enable)
 			sysfs_remove_group(cpufreq_global_kobject,
