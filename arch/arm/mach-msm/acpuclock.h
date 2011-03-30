@@ -27,6 +27,7 @@ enum setrate_reason {
 	SETRATE_SWFI,
 	SETRATE_PC,
 	SETRATE_PC_IDLE,
+	SETRATE_HOTPLUG,
 	SETRATE_INIT,
 };
 
@@ -44,6 +45,8 @@ uint32_t acpuclk_get_switch_time(void);
 unsigned long acpuclk_wait_for_irq(void);
 unsigned long acpuclk_get_wfi_rate(void);
 
+unsigned long acpuclk_power_collapse(void);
+unsigned long acpuclk_hot_unplug(void);
 
 #endif
 
