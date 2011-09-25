@@ -1343,6 +1343,19 @@ config CPU_VOLTAGE_TABLE
   	bool "Enable CPU Voltage Table via sysfs for adjustements"
   	default n
 
+config	MSM_AVS_HW
+	bool "MSM Hardware based Automatic Voltage Scaling"
+	default n
+
+config MSM_AVS_HW
+	bool "Enable Adaptive Voltage Scaling (AVS)"
+	default n
+	help
+	  Enable AVS hardware to fine tune voltage at each frequency. The
+	  AVS hardware blocks associated with each Qualcomm ARMv7 cores can
+	  fine tune the voltages based on the feedback from the ring
+	  oscillators.
+
 if CPU_FREQ_MSM
 
 config MSM_CPU_FREQ_SET_MIN_MAX
@@ -1360,7 +1373,7 @@ config MSM_CPU_FREQ_MAX
 config MSM_CPU_FREQ_MIN
 	int "Min CPU Frequency"
 	depends on MSM_CPU_FREQ_SET_MIN_MAX
-	default 384000
+	default 192000
 
 endif # CPU_FREQ_MSM
 
@@ -1375,7 +1388,7 @@ if MSM_CPU_FREQ_SCREEN
 
 config MSM_CPU_FREQ_SCREEN_OFF
 	int "Screen off cpu frequency"
-	default 245760
+	default 192000
 
 config MSM_CPU_FREQ_SCREEN_ON
 	int "Screen on cpu frequency"
@@ -1385,11 +1398,11 @@ endif # MSM_CPU_FREQ_SCREEN
 
 config MSM_CPU_FREQ_ONDEMAND_MAX
 	int "Max"
-	default 384000
+	default 1512000
 
 config MSM_CPU_FREQ_ONDEMAND_MIN
 	int "Min"
-	default 245760
+	default 192000
 
 config MSM_HW3D
 	tristate "MSM Hardware 3D Register Driver"
